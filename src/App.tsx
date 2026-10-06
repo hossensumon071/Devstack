@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import type { Technology } from "./types";
 
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
@@ -9,8 +10,8 @@ import YourStack from "./components/YourStack";
 import Footer from "./components/Footer";
 
 function App() {
-  const [technologies, setTechnologies] = useState([]);
-  const [stack, setStack] = useState([]);
+  const [technologies, setTechnologies] = useState<Technology[]>([]);
+  const [stack, setStack] = useState<Technology[]>([]);
   const [loading, setLoading] = useState(true);
 
   // JSON fetch
@@ -27,7 +28,7 @@ function App() {
       });
   }, []);
 
-  const handleAdd = (tech) => {
+  const handleAdd = (tech: Technology) => {
     if (stack.some((item) => item.id === tech.id)) {
       toast.warning(`${tech.name} is already in your stack!`);
       return;
@@ -36,10 +37,10 @@ function App() {
     toast.success(`${tech.name} added to your stack`);
   };
 
-  const handleRemove = (id) => {
+  const handleRemove = (id: string) => {
     const removed = stack.find((item) => item.id === id);
     setStack(stack.filter((item) => item.id !== id));
-    toast.info(`${removed.name} removed from your stack`);
+    if (removed) toast.info(`${removed.name} removed from your stack`);
   };
 
   const handleRemoveAll = () => {
@@ -80,7 +81,11 @@ function App() {
             </div>
 
             {/* Sidebar */}
-            <YourStack stack={stack} onRemove={handleRemove} onRemoveAll={handleRemoveAll} />
+            <YourStack
+              stack={stack}
+              onRemove={handleRemove}
+              onRemoveAll={handleRemoveAll}
+            />
           </div>
         )}
       </section>

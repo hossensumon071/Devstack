@@ -1,6 +1,14 @@
+import type { Technology } from "../types";
+
+interface TechCardProps {
+  tech: Technology;
+  isAdded: boolean;
+  onAdd: (tech: Technology) => void;
+}
 
 
-const TechCard = ({ tech, isAdded, onAdd }) => {
+
+const TechCard = ({ tech, isAdded, onAdd }: TechCardProps) => {
   const { name, category, description, icon, rating, difficulty, badge } = tech;
 
   return (

@@ -1,4 +1,13 @@
-const YourStack = ({ stack, onRemove, onRemoveAll }) => {
+import type { Technology } from "../types";
+
+interface YourStackProps {
+  stack: Technology[];
+  onRemove: (id: string) => void;
+  onRemoveAll: () => void;
+}
+
+
+const YourStack = ({ stack, onRemove, onRemoveAll }: YourStackProps) => {
   return (
     <aside className="bg-white rounded-xl border border-gray-100 shadow-sm p-5 lg:sticky lg:top-24 h-fit">
       <h2 className="text-lg font-bold">Your Stack</h2>
